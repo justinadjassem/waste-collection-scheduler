@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: waste-collection-scheduler
+  datasource:
+    url: jdbc:postgresql://localhost:5432/wsc
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 16180
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgresSQLDialect
