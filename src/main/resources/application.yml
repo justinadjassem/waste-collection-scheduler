@@ -1,11 +1,16 @@
+springdoc:
+  swagger-ui:
+    path: "swagger-ui.html"
+  api-docs:
+    path: "/api-docs"
 spring:
   application:
     name: waste-collection-scheduler
   datasource:
-    url: jdbc:postgresql://localhost:5432/wsc
+    url: jdbc:postgresql://localhost:5432/wcs
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 16180
+    password: 161803
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,4 +18,6 @@ spring:
       hibernate:
         format_sql: true
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgresSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+

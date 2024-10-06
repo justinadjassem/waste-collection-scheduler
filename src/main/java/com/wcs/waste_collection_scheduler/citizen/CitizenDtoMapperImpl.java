@@ -1,18 +1,20 @@
 package com.wcs.waste_collection_scheduler.citizen;
 
-import org.springframework.beans.BeanUtils;
+import com.wcs.waste_collection_scheduler.utils.GenericMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CitizenDtoMapperImpl {
+    private final GenericMapper genericMapper;
+
+    public CitizenDtoMapperImpl(GenericMapper genericMapper) {
+        this.genericMapper = genericMapper;
+    }
+
     public CitizenDTO toDto(Citizen citizen) {
-        CitizenDTO citizenDTO = new CitizenDTO();
-        BeanUtils.copyProperties(citizen, citizenDTO);
-        return citizenDTO;
+        return genericMapper.map(citizen, CitizenDTO.class);
     }
     public Citizen toEntity(CitizenDTO citizenDTO) {
-        Citizen citizen = new Citizen();
-        BeanUtils.copyProperties(citizenDTO, citizen);
-        return citizen;
+        return genericMapper.map(citizenDTO, Citizen.class);
     }
 }
