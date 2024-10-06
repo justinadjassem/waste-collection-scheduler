@@ -12,5 +12,4 @@ public class CitizenDTO {
     private String lastName;
     private String email;
     private String phone;
-    private Home home;
 }

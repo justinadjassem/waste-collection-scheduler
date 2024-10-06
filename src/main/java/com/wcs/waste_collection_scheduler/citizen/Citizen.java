@@ -1,8 +1,10 @@
 package com.wcs.waste_collection_scheduler.citizen;
 
-import com.wcs.waste_collection_scheduler.home.Home;
 import com.wcs.waste_collection_scheduler.utils.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +25,4 @@ public class Citizen extends BaseEntity<Long> implements Serializable {
     private String email;
     private String password;
     private String phone;
-    @OneToOne
-    @JoinColumn(name = "home_id")
-    private Home home;
 }

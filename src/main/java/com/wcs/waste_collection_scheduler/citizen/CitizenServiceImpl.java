@@ -30,9 +30,13 @@ public class CitizenServiceImpl implements CitizenService {
 
     @Override
     public CitizenDTO updateCitizen(CitizenDTO citizen) {
-        Citizen citizenEntity = citizenDtoMapper.toEntity(citizen);
-        log.info("Updating a new citizen : {}", citizen.getEmail());
-        return citizenDtoMapper.toDto(citizenRepository.save(citizenEntity));
+        if (citizenRepository.existsById(citizen.getId())){
+            Citizen citizenEntity = citizenDtoMapper.toEntity(citizen);
+
+            log.info("Updating a new citizen : {}", citizen.getEmail());
+            return citizenDtoMapper.toDto(citizenRepository.save(citizenEntity));
+        }
+        throw new IllegalArgumentException("Citizen with id "+ citizen.getId() +" not found");
     }
 
     @Override
