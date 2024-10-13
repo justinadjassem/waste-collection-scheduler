@@ -3,6 +3,7 @@ package com.wcs.waste_collection_scheduler.citizen;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,31 +11,33 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/Citizen")
+@RequestMapping("/citizen")
 @Tag(name = "Citizen")
 public class CitizenRestController {
     private final CitizenService citizenService;
 
-    @PostMapping("/create")
+    @PostMapping
     CitizenDTO createCitizen(@RequestBody CitizenDTO citizen) {
         return citizenService.createCitizen(citizen);
     }
     @GetMapping("/{id}")
-    CitizenDTO getCitizen(@PathVariable long id) throws CitizenNotFoundException {
-        return citizenService.getCitizen(id);
+    ResponseEntity<CitizenDTO> getCitizen(@PathVariable long id) throws CitizenNotFoundException {
+        CitizenDTO citizenDTO = citizenService.getCitizen(id);
+        return ResponseEntity.ok(citizenDTO);
     }
-    @PutMapping("/update/{id}")
-    CitizenDTO updateCitizen(@PathVariable long id, @RequestBody CitizenDTO citizen) {
+
+    @PutMapping("/{id}")
+    CitizenDTO updateCitizen(@PathVariable long id, @RequestBody CitizenDTO citizen) throws CitizenNotFoundException {
         citizen.setId(id);
         return citizenService.updateCitizen(citizen);
     }
-    @GetMapping("/citizens")
+    @GetMapping
     List<CitizenDTO> getCitizens() {
         return citizenService.getAllCitizens();
     }
-    @DeleteMapping("/delete/{id}")
-    void deleteCitizen(@PathVariable long id) {
-        citizenService.deleteCitizen(id);
+    @DeleteMapping("/{id}")
+    void deleteCitizen(@PathVariable long id) throws CitizenNotFoundException {
+        citizenService.citizenLogicalDeletion(id);
     }
 
 }

@@ -29,23 +29,33 @@ public class CitizenServiceImpl implements CitizenService {
     }
 
     @Override
-    public CitizenDTO updateCitizen(CitizenDTO citizen) {
-        Citizen citizenEntity = citizenDtoMapper.toEntity(citizen);
-        log.info("Updating a new citizen : {}", citizen.getEmail());
-        return citizenDtoMapper.toDto(citizenRepository.save(citizenEntity));
+    public CitizenDTO updateCitizen(CitizenDTO citizen) throws CitizenNotFoundException {
+        if (citizenRepository.existsByIdAndDeletedFalse(citizen.getId())){
+            Citizen citizenEntity = citizenDtoMapper.toEntity(citizen);
+
+            log.info("Updating citizen with email : {}", citizen.getEmail());
+            return citizenDtoMapper.toDto(citizenRepository.save(citizenEntity));
+        }
+        throw new CitizenNotFoundException("Citizen with id "+ citizen.getId() +" not found");
     }
 
     @Override
-    public void deleteCitizen(Long id) {
+    public void citizenLogicalDeletion(Long id) throws CitizenNotFoundException {
         log.info("Deleting a Citizen : {}", id);
-        citizenRepository.deleteById(id);
+        Citizen citizen = citizenRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new CitizenNotFoundException("Citizen with id "+ id +" not found"));
+        citizen.delete();
+        citizenRepository.save(citizen);
     }
 
     @Override
     public CitizenDTO getCitizen(Long id) throws CitizenNotFoundException {
         log.info("Retrieving a Citizen : {}", id);
-        Citizen citizen = citizenRepository.findById(id).orElseThrow(() -> new CitizenNotFoundException("Error getting citizen"));
+
+        Citizen citizen = citizenRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new CitizenNotFoundException("A citizen with id " + id + " was not found."));
         return citizenDtoMapper.toDto(citizen);
+
     }
 
     @Override
@@ -53,6 +63,7 @@ public class CitizenServiceImpl implements CitizenService {
         log.info("Retrieving all citizens");
         List<Citizen> citizens = citizenRepository.findAll();
         return citizens.stream()
+                .filter(citizen -> !citizen.isDeleted())
                 .map(citizen -> citizenDtoMapper.toDto(citizen))
                 .collect(Collectors.toList());
     }

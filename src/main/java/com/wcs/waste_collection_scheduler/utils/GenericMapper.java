@@ -9,7 +9,7 @@ public class GenericMapper {
     // ignoreProperties pour ignorer les propriétés que l'on veut ignorer
     public <S, T> T map(S source, Class<T> targetClass, String... ignoreProperties) {
         try {
-            //création instance de l'objet cible
+            //création de l'instance de l'objet cible
             T targetObject = targetClass.getDeclaredConstructor().newInstance();
             BeanUtils.copyProperties(source, targetObject, ignoreProperties);
             return targetObject;
