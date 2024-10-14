@@ -1,6 +1,7 @@
 package com.wcs.waste_collection_scheduler.citizen;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class CitizenRestController {
     private final CitizenService citizenService;
 
     @PostMapping
-    CitizenDTO createCitizen(@RequestBody CitizenDTO citizen) {
+    CitizenDTO createCitizen(@Valid @RequestBody CitizenDTO citizen) {
         return citizenService.createCitizen(citizen);
     }
     @GetMapping("/{id}")
@@ -27,7 +28,7 @@ public class CitizenRestController {
     }
 
     @PutMapping("/{id}")
-    CitizenDTO updateCitizen(@PathVariable long id, @RequestBody CitizenDTO citizen) throws CitizenNotFoundException {
+    CitizenDTO updateCitizen(@PathVariable long id,@Valid @RequestBody CitizenDTO citizen) throws CitizenNotFoundException {
         citizen.setId(id);
         return citizenService.updateCitizen(citizen);
     }
