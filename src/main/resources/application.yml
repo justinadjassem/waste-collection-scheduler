@@ -10,7 +10,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/wcs
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 16180
+    password: 161803
   jpa:
     hibernate:
       ddl-auto: update
