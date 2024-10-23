@@ -24,7 +24,7 @@ public class Home extends BaseEntity<Long> implements Serializable {
     private String longitude;
     private String latitude;
     private Long numberOfCitizen;
-    @OneToOne
-    @JoinColumn(name = "citizen_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "citizen_id", referencedColumnName = "id")
     private Citizen citizen;
 }
