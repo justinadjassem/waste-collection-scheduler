@@ -1,6 +1,7 @@
 package com.wcs.waste_collection_scheduler.utils;
 
 import com.wcs.waste_collection_scheduler.citizen.CitizenNotFoundException;
+import com.wcs.waste_collection_scheduler.home.HomeNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,17 @@ public class GlobalExceptionHandler {
         //response.put("error", "Citizen Not Found");
         //response.put("message", citizenNotFoundException.getMessage());
         //return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(HomeNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> handleHomeNotFoundException(HomeNotFoundException homeNotFoundException, HttpServletRequest request) {
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Home Not Found",
+                homeNotFoundException.getMessage(),
+                request.getRequestURI()
+        );
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
