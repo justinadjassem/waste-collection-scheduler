@@ -1,6 +1,7 @@
 package com.wcs.waste_collection_scheduler.home;
 
 import com.wcs.waste_collection_scheduler.citizen.Citizen;
+import com.wcs.waste_collection_scheduler.district.District;
 import com.wcs.waste_collection_scheduler.utils.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,6 @@ public class Home extends BaseEntity<Long> implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "citizen_id", referencedColumnName = "id")
     private Citizen citizen;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private District district;
 }

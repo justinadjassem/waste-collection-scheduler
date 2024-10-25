@@ -7,7 +7,7 @@ import java.util.List;
 public interface HomeService {
     HomeDTO getHome(Long id) throws HomeNotFoundException;
     HomeDTO createHome(HomeDTO home);
-    HomeDTO updateHome(HomeDTO home) throws CitizenNotFoundException, HomeNotFoundException;
+    HomeDTO updateHome(HomeDTO home) throws  HomeNotFoundException;
     void homeLogicalDeletion(Long id) throws HomeNotFoundException;
     List<HomeDTO> getAllHome();
 }

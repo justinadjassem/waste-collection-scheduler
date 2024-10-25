@@ -38,7 +38,7 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public HomeDTO updateHome(HomeDTO home) throws CitizenNotFoundException, HomeNotFoundException {
+    public HomeDTO updateHome(HomeDTO home) throws HomeNotFoundException {
         if (homeRepository.existsByIdAndDeletedFalse(home.getId())) {
             Home homeToUpdate = homeDtoMapper.toEntity(home);
             log.info("Updating citizen with name : {}", home.getName());
