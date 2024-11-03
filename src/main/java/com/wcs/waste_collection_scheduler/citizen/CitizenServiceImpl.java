@@ -31,10 +31,10 @@ public class CitizenServiceImpl implements CitizenService {
     @Override
     public CitizenDTO updateCitizen(CitizenDTO citizen) throws CitizenNotFoundException {
         if (citizenRepository.existsByIdAndDeletedFalse(citizen.getId())){
-            Citizen citizenEntity = citizenDtoMapper.toEntity(citizen);
+            Citizen updatedCitizen = citizenDtoMapper.toEntity(citizen);
 
             log.info("Updating citizen with email : {}", citizen.getEmail());
-            return citizenDtoMapper.toDto(citizenRepository.save(citizenEntity));
+            return citizenDtoMapper.toDto(citizenRepository.save(updatedCitizen));
         }
         throw new CitizenNotFoundException("Citizen with id "+ citizen.getId() +" not found");
     }

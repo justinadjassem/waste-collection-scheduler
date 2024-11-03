@@ -1,6 +1,7 @@
 package com.wcs.waste_collection_scheduler.wasteCollectionProgram;
 
 import com.wcs.waste_collection_scheduler.enums.CollectionStatus;
+import com.wcs.waste_collection_scheduler.enums.ProgramFrequency;
 import com.wcs.waste_collection_scheduler.home.Home;
 import com.wcs.waste_collection_scheduler.pricing.Pricing;
 import com.wcs.waste_collection_scheduler.team.Team;
@@ -23,10 +24,9 @@ public class WasteCollectionProgram extends BaseEntity<Long> implements Serializ
     private Long id;
     private String name;
     private String description;
-    private String day;
-    private String month;
-    private String year;
     private String Calendar;
+    private ProgramFrequency frequency;
+    private Long numberOfDays;
     private CollectionStatus status;
     @ManyToOne
     @JoinColumn(name = "id")
