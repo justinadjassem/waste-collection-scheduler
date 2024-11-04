@@ -24,6 +24,6 @@ public class Citizen extends BaseEntity<Long> implements Serializable {
     private String email;
     private String password;
     private String phone;
-    @OneToOne(mappedBy = "citizen")
+    @OneToOne(mappedBy = "houseManager")
     private Home home;
 }

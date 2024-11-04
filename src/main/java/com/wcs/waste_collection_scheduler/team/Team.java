@@ -24,8 +24,8 @@ public class Team extends BaseEntity<Long> implements Serializable {
     private String description;
     private int numberOfMember;
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "company_id")
     private Company company; // Compagnie de ramassage associée
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "team")
     List<Member> listOfMembers; // Membres assignés à l'équipe
 }
